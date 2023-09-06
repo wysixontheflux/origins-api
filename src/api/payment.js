@@ -4,10 +4,10 @@ const passport = require('passport');
 const router = express.Router();
 
 router.get(
-  '/me',
+  '/payment',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    res.send(req.user);
+    res.send('You have a total of: 2400$');
   }
 );
 

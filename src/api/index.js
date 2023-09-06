@@ -1,7 +1,7 @@
 const express = require('express');
 const registerApi = require('./register');
 const loginApi = require('./login');
-const paymentApi = require('./me');
+const paymentApi = require('./payment');
 
 const router = express.Router();
 

@@ -11,14 +11,14 @@ router.post('/register', async (req, res) => {
     firstName, lastName, username, email, password
   } = req.body;
 
-  if (!firstName || !lastName || !email || !password) {
-    return res.status(400).json({ message: 'Veuillez remplir tous les champs' });
+  if (!firstName || !lastName || !username || !email || !password) {
+    return res.status(400).json({ message: 'Please fill all fields!' });
   }
 
   const alreadyExistsUser = await prisma.user.findUnique({ where: { email } });
 
   if (alreadyExistsUser) {
-    return res.status(409).json({ message: 'Cet utilisateur est déjà inscrit !' });
+    return res.status(409).json({ message: 'User with email already exists!' });
   }
 
   // create a user with prisma
@@ -32,10 +32,10 @@ router.post('/register', async (req, res) => {
     }
   }).catch((err) => {
     console.log('Error: ', err);
-    res.status(500).json({ error: 'Impossible de vous inscrire pour le moment' });
+    res.status(500).json({ error: 'Cannot register user at the moment!' });
   });
 
-  if (newUser) res.json({ message: 'Merci de votre inscription' });
+  if (newUser) res.json({ message: 'Thanks for registering' });
 });
 
 module.exports = router;
