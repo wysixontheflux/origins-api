@@ -14,11 +14,17 @@ passport.use(
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       secretOrKey: process.env.JWT_SECRET,
     },
-    ((jwtPayload, done) => prisma.user.findUnique({ where: { id: jwtPayload.id } })
-      .then((user) => {
-        user.password = undefined;
-        done(null, user);
-      })
-      .catch((err) => done(err)))
+    async (jwtPayload, done) => {
+      try {
+        const user = await prisma.user.findUnique({ where: { id: jwtPayload.id } });
+        if (user) {
+          return done(null, user);
+        } else {
+          return done(null, false);
+        }
+      } catch (error) {
+        return done(error, false);
+      }
+    }
   )
 );

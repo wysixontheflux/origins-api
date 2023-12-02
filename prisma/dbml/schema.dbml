@@ -5,16 +5,33 @@
 Table User {
   id Int [pk, increment]
   firstName String
-  lastName String
   username String
   email String [unique, not null]
   password String [not null]
   role Role [not null, default: 'USER']
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [not null]
+  clanId Int
+  Clan Clan
+  LeadingClan Clan
+}
+
+Table Clan {
+  id Int [pk, increment]
+  name String [not null]
+  victories Int [not null]
+  defeats Int [not null]
+  createdAt DateTime [default: `now()`, not null]
+  leaderId Int [unique, not null]
+  Leader User [not null]
+  Members User [not null]
 }
 
 Enum Role {
   USER
   ADMIN
 }
+
+Ref: User.clanId - Clan.id
+
+Ref: Clan.leaderId - User.id

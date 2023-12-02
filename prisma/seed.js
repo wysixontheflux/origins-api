@@ -8,7 +8,6 @@ async function run() {
     update: {},
     create: {
       firstName: 'Alice',
-      lastName: 'Doe',
       username: 'alice.doe',
       email: 'alice.doe@tamere.com',
       password: '123456',
