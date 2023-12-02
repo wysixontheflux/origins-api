@@ -1,6 +1,6 @@
 module.exports = {
   env: {
-    jest: true,
+    jest: false,
   },
   extends: 'airbnb-base',
   rules: {
